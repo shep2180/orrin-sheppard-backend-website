@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "testingdynamodbstack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-12q7ckr8d06xd"
+s3_prefix = "testingdynamodbstack"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+

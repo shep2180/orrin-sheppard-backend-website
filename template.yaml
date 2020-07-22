@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  orrinsheppard.com/orrin.cloud SAM Template
+
+  SAM template to deploy/update the back-end of my resume website
+
+Resources:
+  TestAPIGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+        Name: testsamapi
+        StageName: Staging
+        Cors:
+            AllowMethods: "'GET'"
+            AllowHeaders: "'*'"
+            AllowOrigin: "'*'"
+
+  TestDynamo:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      TableName: VisitorCounterDB
+            
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: Lambda/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Policies:
+        - AmazonDynamoDBFullAccess
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            RestApiId: !Ref TestAPIGateway
+            Path: /testsamapi
+            Method: get
+
+Outputs:
+  TestAPIGateway:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${TestAPIGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/testsamapi/"
