@@ -21,7 +21,7 @@ jobs:
         pip install flake8 pytest
         pip install boto3
         pip install moto
-    - name: Test with pytest
+    - name: Run tests on Python
       run: python Lambda/testCounter.py -v
     - name: SAM Build
       uses: youyo/aws-sam-action@v1.0.0
