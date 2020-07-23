@@ -6,9 +6,6 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('VisitorCounterDB')
 
 def addVisitor(value):
-    #resp = table.get_item(Key={'id': 'counter'})
-    #value = resp['Item']['counter_value'] + 1
-    #resp = table.update_item(Key={'id':'counter'}, UpdateExpression='set counter_value=:value', ExpressionAttributeValues={':value': value})
     return value + 1
 
 def lambda_handler(event, context):
